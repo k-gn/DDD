@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.Objects;
 
+// 밸류 객체는 명확한 표현과, 자체 기능을 제공한다.
 @Getter
 public class Receiver {
 
@@ -15,6 +16,7 @@ public class Receiver {
         this.phoneNumber = phoneNumber;
     }
 
+    // 밸류객체 비교 시 모든 속성이 같은지 비교
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

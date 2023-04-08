@@ -5,10 +5,12 @@ import java.util.Objects;
 
 /*
 	# 주문
+
+	setter 는 지양하는게 좋다. (private 으로 선언 후 생성자와 같은 내부에서 사용 및 검증하는 방식은 괜찮다.)
  */
 public class Order {
 
-	private String orderNumber; // 식별자
+	private String orderNumber; // 식별자, OrderNo 라는 밸류타입으로 선언할 수 있다.
 	private List<OrderLine> orderLines;
 	private Money totalAmounts;
 	private ShippingInfo shippingInfo;
