@@ -6,13 +6,13 @@ package com.example.ddd.chap1;
 public class OrderLine {
 
 	private Product product;
-	private int price;
+	private Money price;
 	private int quantity;
-	private int amounts;
+	private Money amounts;
 
 	public OrderLine(
 		Product product,
-		int price,
+		Money price,
 		int quantity
 	) {
 		this.product = product;
@@ -21,11 +21,11 @@ public class OrderLine {
 		this.amounts = calculateAmounts();
 	}
 
-	private int calculateAmounts() {
-		return this.price * this.quantity;
+	private Money calculateAmounts() {
+		return this.price.multiply(this.quantity);
 	}
 
-	public int getAmounts() {
+	public Money getAmounts() {
 		return amounts;
 	}
 }
