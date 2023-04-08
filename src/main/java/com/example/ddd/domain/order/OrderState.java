@@ -1,4 +1,4 @@
-package com.example.ddd.chap1;
+package com.example.ddd.domain.order;
 
 public enum OrderState {
 	// 도메인에서 사용하는 용어를 정의하는게 좋다.

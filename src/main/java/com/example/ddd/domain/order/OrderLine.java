@@ -1,4 +1,4 @@
-package com.example.ddd.chap1;
+package com.example.ddd.domain.order;
 
 /*
 	# 주문 항목
