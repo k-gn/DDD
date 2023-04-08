@@ -2,6 +2,8 @@ package com.example.ddd.chap1;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Getter
 public class Address {
 
@@ -13,5 +15,18 @@ public class Address {
         this.address1 = address1;
         this.address2 = address2;
         this.zipcode = zipcode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(address1, address.address1) && Objects.equals(address2, address.address2) && Objects.equals(zipcode, address.zipcode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address1, address2, zipcode);
     }
 }
