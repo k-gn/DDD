@@ -1,12 +1,14 @@
 package com.example.ddd.chap1;
 
 import java.util.List;
+import java.util.Objects;
 
 /*
 	# 주문
  */
 public class Order {
 
+	private String orderNumber; // 식별자
 	private List<OrderLine> orderLines;
 	private Money totalAmounts;
 	private ShippingInfo shippingInfo;
@@ -18,6 +20,19 @@ public class Order {
 	) {
 		setOrderLines(orderLines);
 		setShippingInfo(shippingInfo);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Order order = (Order) o;
+		return Objects.equals(orderNumber, order.orderNumber);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(orderNumber);
 	}
 
 	private void setShippingInfo(ShippingInfo shippingInfo) {
