@@ -1,5 +1,7 @@
 package com.example.ddd.domain.order;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +22,8 @@ import java.util.Objects;
 		- ex) 배송지를 변경하려면 Order 클래스를 통해 변경할 수 있다. (항상 Order가 구현한 도메인 로직을 따른다)
 
  */
+// @Entity
+//@Table(name = "TBL_ORDER")
 public class Order {
 
 	private OrderNo number; // 식별자, OrderNo 라는 밸류타입으로 선언할 수 있다.
