@@ -1,9 +1,9 @@
 package com.example.ddd.domain.order;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
+
+import static com.example.ddd.domain.order.OrderState.*;
 
 /*
 	# 주문
@@ -20,6 +20,11 @@ import java.util.Objects;
 	- 해당 클래스를 거쳐 간접적으로 애그리거트 내의 엔티티나 밸류 객체에 접근할 수 있다.
 	- 즉, 내부구현을 숨겨서 애그리거트 단위로 구현을 캡슐화 할 수 있다.
 		- ex) 배송지를 변경하려면 Order 클래스를 통해 변경할 수 있다. (항상 Order가 구현한 도메인 로직을 따른다)
+
+	## 애그리거트 루트 클래스
+	- 애그리거트 루트를 통해서만 도메인 로직을 구현한다.
+		- public setter (x)
+		- 밸류타입을 불변으로
 
  */
 // @Entity
@@ -72,31 +77,32 @@ public class Order {
 	}
 
 	private void calculateTotalAmounts() {
-		int sum = orderLines.stream().map(OrderLine::getAmounts).mapToInt(Money::getValue).sum();
+		int sum = orderLines.stream()
+				.mapToInt(m -> m.getPrice().getValue() * m.getQuantity()).sum();
 		this.totalAmounts = new Money(sum);
 	}
 
 	public void changeShipped() {
-
+		this.orderState = SHIPPED;
 	}
 
 	public void changeShippingInfo(ShippingInfo newShippingInfo) {
-		checkShippingInfoChangeable();
+		verifyNotYetShipped();
 		setShippingInfo(newShippingInfo);
 	}
 
 	/*
 		배송지 변경이나, 주문 취소 기능은 출고 전에만 가능하다.
 	 */
-	private void checkShippingInfoChangeable() {
-		if (orderState != OrderState.PAYMENT_WAITING && orderState != OrderState.PREPARING) {
+	private void verifyNotYetShipped() {
+		if (orderState != PAYMENT_WAITING && orderState != PREPARING) {
 			throw new IllegalArgumentException("already shipped");
 		}
 	}
 
 	public void cancel() {
-		checkShippingInfoChangeable();
-		this.orderState = OrderState.CANCELED;
+		verifyNotYetShipped();
+		this.orderState = CANCELED;
 	}
 
 	public void completePayment() {

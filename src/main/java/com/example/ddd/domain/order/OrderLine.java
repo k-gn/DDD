@@ -28,4 +28,12 @@ public class OrderLine {
 	public Money getAmounts() {
 		return amounts;
 	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public Money getPrice() {
+		return price;
+	}
 }
