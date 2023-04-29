@@ -1,5 +1,7 @@
 package com.example.ddd.domain.order;
 
+import java.util.Optional;
+
 /*
     애그리거트 단위로 루트 도메인 객체를 저장/조회할 레포지토리
     해당 클래스는 도메인 객체를 영속화하는데 필요한 기능을 추상화한 고수준 모듈
@@ -10,7 +12,9 @@ package com.example.ddd.domain.order;
  */
 public interface OrderRepository {
 
-    Order findByNumber(OrderNo number);
+    Optional<Order> findById(OrderNo no);
+
+    Order findByNumber(OrderNo no);
 
     void save(Order order);
 
