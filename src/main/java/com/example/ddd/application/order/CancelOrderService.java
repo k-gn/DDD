@@ -34,6 +34,6 @@ public class CancelOrderService {
                 2. 데이터 동기화
 
          */
-        refundService.refund();
+        // refundService.refund();
     }
 }

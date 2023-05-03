@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RefundService {
 
-    public void refund() {
+    public void refund(String orderNumber) {
         // ...
     }
 }

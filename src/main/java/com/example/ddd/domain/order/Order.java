@@ -1,5 +1,7 @@
 package com.example.ddd.domain.order;
 
+import com.example.ddd.domain.Events;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -103,6 +105,16 @@ public class Order {
 	public void cancel() {
 		verifyNotYetShipped();
 		this.orderState = CANCELED;
+
+		/*
+			1. 도메인 기능 실행
+			2. Events.raise() 로 이벤트 발생
+			3. Events.raise() 는 ApplicationEventPublisher 를 사용하여 이벤트 출판
+			4. ApplicationEventPublisher 는 @EventListener 가 붙은 핸들러 메서드를 찾아 실행
+
+			(이 때 응용서비스와 동일한 트랜잭션 범위)
+		 */
+		Events.raise(new OrderCanceledEvent(this.number.getId()));
 	}
 
 	public void completePayment() {
